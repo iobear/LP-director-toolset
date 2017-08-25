@@ -5,12 +5,11 @@ I'm not done, this is early days
 Requires python packages:
 pip install requests configparser tabulate
 
-update config.ini with API key and ID of Logpoint server
+update config.ini with API host, API key and ID of Logpoint server
 
 examples:
 
 run ./lpapi.py for help
-
 
 Repo:
 ./lpapi.py get repo

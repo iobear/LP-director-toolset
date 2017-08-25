@@ -3,8 +3,7 @@
 import time
 
 class Devices:
-	"""docstring for Printer"""
-
+	"""docstring for Devices"""
 
 
 	def create(self, parameters):

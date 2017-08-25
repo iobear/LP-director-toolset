@@ -4,7 +4,8 @@ import json
 from apiconnect import Connect
 
 class deviceGroups(object):
-	"""docstring for Printer"""
+	"""docstring for deviceGroups"""
+
 	def __init__(self):
 		self.callapi = Connect()
 #		pass

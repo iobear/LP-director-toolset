@@ -35,7 +35,6 @@ class Format:
 
 			response = 0
 			while response == 0:
-				#print result['message']['message']
 				progress = orders.read(result['message']['message'])
 				orderresult = progress.get('message')
 

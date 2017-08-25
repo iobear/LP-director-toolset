@@ -30,7 +30,6 @@ class API:
 	systemsettingsntp = SystemSettingsNTP()
 
 	def __init__(self, out, debug):
-		#self.callapi = Connect()
 		self.show = Format(out, debug)
 
 	def repos(self):
@@ -51,7 +50,6 @@ class API:
 		if task == 'get':
 			self.data['deviceapi'] = self.connect.getOption('Devices')
 			self.data = self.device.listall(self.data)
-			#print self.data
 			self.show.printformat(self.data['devicelist'])
 
 		if task == 'create':

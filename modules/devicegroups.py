@@ -4,17 +4,6 @@
 class DeviceGroups:
 	"""docstring for DeviceGroups"""
 
-	# def create(self, parameters):
-	# 	data = {}
-
-	# 	callapi = Connect('DeviceGroups')
-		
-	# 	data['userinput'] = parameters
-	# 	data['default'] = ''
-	# 	result = callapi.postoption(data)
-
-	# 	print (result)
-
 	def getNames(self, data):
 		returndict = {}
 
@@ -22,6 +11,7 @@ class DeviceGroups:
 			returndict[devicegrps['id']] = devicegrps['name']
 
 		return returndict
+
 
 	def getAll(self, data):
 

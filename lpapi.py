@@ -38,11 +38,6 @@ if args.option == 'system':
 		api.systemSettings(args.task, args.parameter)
 
 if args.option == 'ntp':
-	# if args.task == 'get':
-	# 	api.systemSettingsNTP(args.task)
-	# if args.task == 'restart':
-	# 	api.systemSettingsNTP(args.task)
-	# if args.task == 'create':
 	api.systemSettingsNTP(args.task, args.parameter)
 
 if args.option == 'processpol':
@@ -63,7 +58,7 @@ if args.option == 'device':
 
 		if args.parameter:
 			api.devices(args.task, args.parameter)
-			#devices.create(args.parameter)
+
 		else:
 			print ('missing --parameter name=<device name> devicegroup=<devicegroup> ip=<ip>, ip2=<ip>, ip3=...')
 
