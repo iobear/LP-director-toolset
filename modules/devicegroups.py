@@ -4,7 +4,7 @@
 class DeviceGroups:
 	"""docstring for DeviceGroups"""
 
-	def getNames(self, data):
+	def getNamesOnly(self, data):
 		returndict = {}
 
 		for devicegrps in data:

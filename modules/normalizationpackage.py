@@ -4,16 +4,16 @@
 class NormalizationPackage:
 	"""docstring for NormalizationPackage"""
 
-	def create(self, parameters):
-		data = {}
+	# def create(self, parameters):
+	# 	data = {}
 
-		callapi = Connect('NormalizationPackage')
+	# 	callapi = Connect('NormalizationPackage')
 		
-		data['userinput'] = parameters
-		data['default'] = ''
-		result = callapi.postoption(data)
+	# 	data['userinput'] = parameters
+	# 	data['default'] = ''
+	# 	result = callapi.postoption(data)
 
-		print (result)
+	# 	print (result)
 
 
 	def getNames(self, data):

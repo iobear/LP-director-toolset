@@ -35,6 +35,7 @@ class Devices:
 
 			devicegroupss = data[i]['device_groups']
 			devgrprow = []
+
 			for dev in devicegroupss:
 				devgrprow.append(blob['devicegroups'][dev])
 

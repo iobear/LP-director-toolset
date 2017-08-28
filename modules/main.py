@@ -43,9 +43,9 @@ class API:
 		self.data['userinput'] = parameter
 		self.data['option'] = 'Devices'
 		self.data['groupapi'] = self.connect.getOption('DeviceGroups')
-		self.data['devicegroups'] = self.devicegroup.getNames(self.data['groupapi'])
+		self.data['devicegroups'] = self.devicegroup.getNamesOnly(self.data['groupapi'])
 		self.data['ppapi'] = self.connect.getOption('ProcessingPolicy')
-		self.data['processingpolicy'] = self.processingpolicy.getNames(self.data['ppapi'])
+		self.data['processingpolicy'] = self.processingpolicy.getNamesOnly(self.data['ppapi'])
 
 		if task == 'get':
 			self.data['deviceapi'] = self.connect.getOption('Devices')
@@ -128,28 +128,58 @@ class API:
 			self.show.printOrders(result)
 
 
-	def processingPolicy(self):
-		self.data['ppapi'] = self.connect.getOption('ProcessingPolicy')
+	def processingPolicy(self,task, parameter = ''):
 
-		self.show.printformat(self.data['ppapi'])
-		#self.data['processingpolicy'] = self.processingpolicy.getAll(self.data['ppapi'])
+		apiresponse = self.connect.getOption('RoutingPolicies')
+		self.data['routing_policy'] = self.namesOnly(apiresponse, 'policy_name')
 
-		#self.show.printformat(self.data['processingpolicy'])
-
-
-	def normalizationPolicy(self):
-		self.data['normpackapi'] = self.connect.getOption('NormalizationPackage')
-		self.data['normalizationpackage'] = self.normalizationpackage.getNames(self.data['normpackapi'])
-		self.data['normpolapi'] = self.connect.getOption('NormalizationPolicy')
-
-		self.data['normalizationpolicy'] = self.normalizationpolicy.getAll(self.data)
-
-		self.show.printformat(self.data['normalizationpolicy'])
+		if task == 'get':
+			self.data['ppapi'] = self.connect.getOption('ProcessingPolicy')
+			self.data = self.processingpolicy.listAll(self.data)
+			self.show.printformat(self.data)
 
 
-	def normalizationPackage(self):
-		self.data['normpackapi'] = self.connect.getOption('NormalizationPackage')
+			#self.data['processingpolicy'] = self.processingpolicy.getAll(self.data['ppapi'])
 
-		self.show.printformat(self.data['normpackapi'])
+			#self.show.printformat(self.data['processingpolicy'])
 
 
+	def normalizationPolicy(self,task, parameter = ''):
+
+		if task == 'get':
+			self.data['normpackapi'] = self.connect.getOption('NormalizationPackage')
+			self.data['normalizationpackage'] = self.normalizationpackage.getNames(self.data['normpackapi'])
+			self.data['normpolapi'] = self.connect.getOption('NormalizationPolicy')
+
+			self.data['normalizationpolicy'] = self.normalizationpolicy.getAll(self.data)
+
+			self.show.printformat(self.data['normalizationpolicy'])
+
+		if task == 'create':
+			pass
+
+
+	def normalizationPackage(self,task, parameter = ''):
+
+		if task == 'get':
+			self.data['normpackapi'] = self.connect.getOption('NormalizationPackage')
+
+			self.show.printformat(self.data['normpackapi'])
+
+
+
+	def routingPolicy(self,task, parameter = ''):
+
+		if task == 'get':
+			self.data['rpapi'] = self.connect.getOption('RoutingPolicies')
+
+			self.show.printformat(self.data['rpapi'])
+
+
+	def namesOnly(self, data, item):
+		returndict = {}
+
+		for stuff in data:
+			returndict[stuff['id']] = stuff[item]
+
+		return returndict
