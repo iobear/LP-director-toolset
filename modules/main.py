@@ -29,15 +29,33 @@ class API:
 	opendoor = OpenDoor()
 	systemsettingsntp = SystemSettingsNTP()
 
+
 	def __init__(self, out, debug):
 		self.show = Format(out, debug)
 
-	def repos(self):
-		self.data['repoapi'] = self.connect.getOption('Repos')
+	def repos(self, task, parameter = ''):
+		self.data['default'] = self.config.default_repo_parameters
+		self.data['userinput'] = parameter
 
-		self.data['repos'] = self.repo.getAll(self.data['repoapi'])
+		if task == 'get':
+			self.data['repoapi'] = self.connect.getOption('Repos')
+			self.data['repos'] = self.repo.getAll(self.data['repoapi'])
+			self.show.printformat(self.data['repos'])
 
-		self.show.printformat(self.data['repos'])
+		if task == 'edit':
+			self.data = self.repo.update(self.data)
+			self.data['http'] = 'PUT'
+			result = self.connect.update(self.data)
+			self.show.printOrders(result)
+
+		if task == 'create':
+			self.data = self.repo.update(self.data)
+			result = self.connect.update(self.data)
+			self.show.printOrders(result)
+
+		if task == 'delete' or task == 'trash':
+			pass
+
 
 	def devices(self, task, parameter = ''):
 		self.data['userinput'] = parameter
@@ -53,8 +71,8 @@ class API:
 			self.show.printformat(self.data['devicelist'])
 
 		if task == 'create':
-			self.data['default'] = self.config.defaultdeviceparameter
-			result = self.connect.postoption(self.data)
+			self.data['default'] = self.config.default_device_parameters
+			result = self.connect.update(self.data)
 			self.show.printOrders(result)
 
 
@@ -68,8 +86,7 @@ class API:
 
 		if task == 'create':
 			self.data['option'] = 'OpenDoor'
-			self.data['default'] = ''
-			result = self.connect.postoption(self.data)
+			result = self.connect.update(self.data)
 			self.show.printOrders(result)
 
 
@@ -83,15 +100,12 @@ class API:
 
 		if task == 'restart':
 			self.data['option'] = 'SystemSettingsNTP/ntprestart'
-			self.data['default'] = ''
-			result = self.connect.postoption(self.data)
+			result = self.connect.update(self.data)
 			self.show.printOrders(result)
-
 
 		if task == 'create':
 			self.data['option'] = 'SystemSettingsNTP'
-			self.data['default'] = ''
-			result = self.connect.postoption(self.data)
+			result = self.connect.update(self.data)
 			self.show.printOrders(result)
 
 
@@ -105,9 +119,9 @@ class API:
 
 		if task == 'create':
 			self.data['option'] = 'SystemSettingsGeneral'
-			self.data['default'] = ''
-			result = self.connect.postoption(self.data)
+			result = self.connect.update(self.data)
 			self.show.printOrders(result)		
+
 
 	def deviceGroups(self, task, parameter = ''):
 		self.data['userinput'] = parameter
@@ -121,9 +135,7 @@ class API:
 			self.show.printformat(self.data['devicegroups'])
 
 		if task == 'create':
-			self.data['default'] = ''
-
-			result = self.connect.postoption(self.data)
+			result = self.connect.update(self.data)
 
 			self.show.printOrders(result)
 
@@ -137,11 +149,6 @@ class API:
 			self.data['ppapi'] = self.connect.getOption('ProcessingPolicy')
 			self.data = self.processingpolicy.listAll(self.data)
 			self.show.printformat(self.data)
-
-
-			#self.data['processingpolicy'] = self.processingpolicy.getAll(self.data['ppapi'])
-
-			#self.show.printformat(self.data['processingpolicy'])
 
 
 	def normalizationPolicy(self,task, parameter = ''):
@@ -165,7 +172,6 @@ class API:
 			self.data['normpackapi'] = self.connect.getOption('NormalizationPackage')
 
 			self.show.printformat(self.data['normpackapi'])
-
 
 
 	def routingPolicy(self,task, parameter = ''):

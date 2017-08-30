@@ -13,7 +13,7 @@ class Connect:
 	def __init__(self):
 		self.apiconfig = ApiConfig()
 
-	def postoption(self, parameters):
+	def update(self, parameters):
 
 		kvdata = {} 
 		data = {}
@@ -21,7 +21,8 @@ class Connect:
 		devicegroup = []
 		ntp_server = []
 
-		kvdata.update(parameters['default']) #add default device values to post data
+		if parameters.get('default'):
+				kvdata.update(parameters['default']) #add default device values to post data
 
 		for tmpdata in parameters['userinput']: #make dict of user input
 
@@ -42,7 +43,10 @@ class Connect:
 			else:
 				kvdata[keyvalue[0]] = keyvalue[1]
 
-		data['data'] = kvdata
+		if parameters.get('data'):
+			data = parameters		
+		else:
+			data['data'] = kvdata
 
 		postdata = json.dumps(data)
 	
@@ -51,7 +55,11 @@ class Connect:
 
 		headers = {'content-type': 'application/json', 'Authorization':'Bearer %s' %self.apiconfig.auth_token}
 
-		result = requests.post(url, data=postdata, headers=headers, verify=False)
+		if parameters.get('http') == 'PUT':
+			result = requests.put(url, data=postdata, headers=headers, verify=False)
+
+		else:
+			result = requests.post(url, data=postdata, headers=headers, verify=False)
 
 		result = self.errorCheck(result)
 
@@ -93,7 +101,6 @@ class Connect:
 		message['httpstatus'] = result.status_code
 	
 		jresult = result.json()
-
 
 		if isinstance(jresult, list): # if list not dict
 			passthrough = 1

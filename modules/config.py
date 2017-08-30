@@ -15,9 +15,10 @@ class ApiConfig:
 	logpoint_identifier = config['LPID'][config['LPID']['default']]
 	pool = config['POOL'][config['POOL']['default']]
 
-	#Default device parameters
-	defaultdeviceparameter = config.items( "DEVICE" )
+	default_device_parameters = config.items( "DEVICE" )
 	timezone = config['DEVICE']['timezone']
 	integrity = config['DEVICE']['integrity']
 	availability = config['DEVICE']['availability']
 	confidentiality = config['DEVICE']['confidentiality']
+
+	default_repo_parameters = config.items( "REPO" )

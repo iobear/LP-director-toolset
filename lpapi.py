@@ -22,62 +22,33 @@ args = parser.parse_args()
 api = API(args.output, args.debug)
 
 if args.option == 'opendoor' or args.option == 'od':
-	if args.task == 'get':
-		api.openDoor(args.task)
-	if args.task == 'create':
-		api.openDoor(args.task, args.parameter)
+	api.openDoor(args.task, args.parameter)
 
 if args.option == 'repo':
-	api.repos()
+	api.repos(args.task, args.parameter)
 
 if args.option == 'system':
-	if args.task == 'get':
-		api.systemSettings(args.task)
-	if args.task == 'create':
-		api.systemSettings(args.task, args.parameter)
+	api.systemSettings(args.task, args.parameter)
 
 if args.option == 'ntp':
 	api.systemSettingsNTP(args.task, args.parameter)
 
 if args.option == 'processpol' or args.option == 'ppo':
-	if args.task == 'get':
-		api.processingPolicy(args.task)
+	api.processingPolicy(args.task, args.parameter)
 
 if args.option == 'normpol' or args.option == 'npo':
-	if args.task == 'get':
-		api.normalizationPolicy(args.task)
+	api.normalizationPolicy(args.task, args.parameter)
 
 if args.option == 'normpack' or args.option == 'npa':
-	if args.task == 'get':
-		api.normalizationPackage(args.task)
+	api.normalizationPackage(args.task, args.parameter)
 
 if args.option == 'routepol' or args.option == 'rpo':
-	if args.task == 'get':
-		api.routingPolicy(args.task)
+	api.routingPolicy(args.task, args.parameter)
 
 if args.option == 'device' or args.option == 'dev':
-
-	if args.task == 'get':
-		api.devices(args.task)
-
-	if args.task == 'create':
-
-		if args.parameter:
-			api.devices(args.task, args.parameter)
-
-		else:
-			print ('missing --parameter name=<device name> devicegroup=<devicegroup> ip=<ip>, ip2=<ip>, ip3=...')
-
+		api.devices(args.task, args.parameter)
 
 if args.option == 'devicegroup' or args.option == 'dg':
-
-	if args.task == 'get':
-		api.deviceGroups(args.task)
-
-	if args.task == 'create':
-		if args.parameter:
-			api.deviceGroups(args.task, args.parameter)
-		else:
-			print ('missing --parameter name=<group name> description=<description>')
+		api.deviceGroups(args.task, args.parameter)
 
 
