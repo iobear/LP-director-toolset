@@ -15,7 +15,7 @@ class Format:
 	def printformat(self, printthis):
 
 		if self.out == 'json':
-			print (printthis)
+			print (json.dumps(printthis))
 
 		elif self.out == 'txt':
 
@@ -42,7 +42,6 @@ class Format:
 					print ('DEBUG:')
 					print (orderresult)
 
-				print
 				response = len(orderresult.get('response'))
 				time.sleep(1)
 
@@ -56,9 +55,8 @@ class Format:
 
 		elif self.out == 'txt':
 
-			print 
 			for item in printthis:
 				for key, value in item.iteritems():
-					print ' | ' + str(key) + ' = ' +  str(value)
+					print (' | ' + str(key) + ' = ' +  str(value))
 
 			print

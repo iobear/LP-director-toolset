@@ -44,7 +44,7 @@ class Connect:
 				kvdata[keyvalue[0]] = keyvalue[1]
 
 		if parameters.get('data'):
-			data = parameters		
+			data = parameters
 		else:
 			data['data'] = kvdata
 
@@ -52,6 +52,7 @@ class Connect:
 	
 		apipath = '/configapi/v1/' + self.apiconfig.pool + '/' + self.apiconfig.logpoint_identifier + '/' + parameters['option']
 		url = 'https://' + self.apiconfig.apihost + apipath
+
 
 		headers = {'content-type': 'application/json', 'Authorization':'Bearer %s' %self.apiconfig.auth_token}
 
@@ -123,7 +124,7 @@ class Connect:
 
 		elif message.get('error') == 1: #TODO should not exit here, but return in select format
 			print
-			print (jresult)
+			print (json.dumps(jresult))
 			print
 			raise SystemExit, 1
 

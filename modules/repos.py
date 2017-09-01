@@ -5,59 +5,53 @@ class Repos:
 	"""docstring for Repos"""
 
 	def update(self, data):
+		'''
+		udating repos
+		Had a bit of trouble with this one, should be possible to write it cleaner.
+		'''
+
+		#build datastructure
 		returndata = {}
 		returndata['option'] = 'Repos'
+		returndata['userinput'] = ''
 		returndata['data'] = {}
-
 		returndata['data']['hiddenrepopath'] = []
+		repo_path = {}
 
-		hiddenrepopath = []
-
-		default = {}
 		for key, value in data['default']: # prepare default values from config.ini
 			if key == 'retention':
-				default[key] = int(value)
+				repo_path[key] = int(value)
 			else:
-				default[key] = value
+				repo_path[key] = value
 
-		#returndata['data']['hiddenrepopath'].append(tmpdict) #adding default values from config.ini
-
-		repo_path = {}
 		i = 0
 		for tmpdata in data['userinput']: #checking user input
 
 			keyvalue = tmpdata.split('=')
 
-			if keyvalue[0].startswith( 'path' ) or keyvalue[0].startswith( 'retention' ):
+			if keyvalue[0].startswith( 'path' ) or keyvalue[0].startswith( 'retention' ): #creating hiddenrepopath
 
-				repo_path[keyvalue[0]] = keyvalue[1]
+				if keyvalue[0] == 'retention':
+					repo_path[keyvalue[0]] = int(keyvalue[1])
+				else:
+					repo_path[keyvalue[0]] = keyvalue[1]
 
-				if i == [1,3,5,7]:
-					insert = i - 1
-					returndata['data']['hiddenrepopath'][insert] = repo_path
+				if i in [1,3,5,7]: #if we have a path/retention pair - insert
+					returndata['data']['hiddenrepopath'].append(repo_path)
+					repo_path = {}
 
 				i += 1
+
+			elif keyvalue[0] == 'id': #check if edit, not create
+				returndata['option'] = 'Repos/' + str(keyvalue[1])
 
 			else:
 				returndata['data'][keyvalue[0]] = keyvalue[1]
 
-
-		print returndata
-
-
-
-
-		raise SystemExit, 1
-
-
-
-		returndata['userinput'] = ''
-
-		#if returndata['data'].get('hiddenrepopath')[0]:
-
+		if not returndata['data']['hiddenrepopath']:
+			returndata['data']['hiddenrepopath'].append(repo_path)
 
 		return returndata
-		raise SystemExit, 1
 
 
 	def getAll(self, data):

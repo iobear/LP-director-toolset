@@ -13,6 +13,12 @@ run ./lpapi.py for help
 
 Repo:
 ./lpapi.py get repo
+./lpapi.py create repo --parameter name=Windows
+./lpapi.py create repo --parameter name=Windows retention=36
+./lpapi.py create repo --parameter name=Windows retention=36 path=/opt/immune/storage2/
+#keep the path/retention in pairs:
+./lpapi.py create repo --parameter name=Windows retention=30 path=/opt/immune/storage/ path=/opt/immune/morestorage/ retention=120
+
 
 
 Device:
