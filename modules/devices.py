@@ -59,7 +59,7 @@ class Devices:
 
 
 	def findDeviceId(self, devdict, devname):
-		devid = ''
+		devid = '00'
 
 		for devdetail in devdict:
 			if devdict[devdetail] == devname:
