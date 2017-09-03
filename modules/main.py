@@ -46,7 +46,7 @@ class API:
 
 		if self.task == 'edit':
 			self.data = self.repo.update(self.data)
-			self.data['http'] = 'PUT'
+			self.data['http'] = 'put'
 			result = self.connect.update(self.data)
 			self.show.printOrders(result)
 
@@ -61,27 +61,29 @@ class API:
 
 	def devices(self):
 		self.data['option'] = 'Devices'
+		self.data['default'] = self.config.default_device_parameters
 		self.data['groupapi'] = self.connect.getOption('DeviceGroups')
 		self.data['devicegroups'] = self.devicegroup.getNamesOnly(self.data['groupapi'])
 		self.data['ppapi'] = self.connect.getOption('ProcessingPolicy')
 		self.data['processingpolicy'] = self.processingpolicy.getNamesOnly(self.data['ppapi'])
 
-		if self.task == 'get':
+		if not self.task == 'create':
 			self.data['deviceapi'] = self.connect.getOption('Devices')
+			self.data['devices'] = self.namesOnly(self.data['deviceapi'], 'name')
+
+		if self.task == 'get':
 			self.data = self.device.listall(self.data)
 			self.show.printformat(self.data['devicelist'])
 
 		if self.task == 'create':
-			self.data['default'] = self.config.default_device_parameters
 			result = self.connect.update(self.data)
 			self.show.printOrders(result)
 
-		if self.task == 'edit':
-			self.data['devices'] = self.connect.getOption('Devices')
-			self.data['default'] = self.config.default_device_parameters
+		if self.task == 'edit' or self.task == 'delete':
 			self.data = self.device.update(self.data)
 			result = self.connect.update(self.data)
 			self.show.printOrders(result)
+
 
 	def openDoor(self):
 		if self.task == 'get':

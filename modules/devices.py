@@ -27,24 +27,24 @@ class Devices:
 
 				for devgrp in parameters['devicegroups']: #find id to devicegroup
 					if parameters['devicegroups'][devgrp] == keyvalue[1]:
-					devgrpid = devgrp
+						devgrpid = devgrp
 
 				devicegroup.append(devgrpid)
+				devgrpid = ''
 				data['devicegroup'] = devicegroup
 			else:
 				data[keyvalue[0]] = keyvalue[1]
 
-		if parameters['task'] == 'edit':
-			returndata['http'] = 'PUT'
+		if parameters['task'] == 'edit' or parameters['task'] == 'delete':
+			returndata['http'] = 'put'
+			if parameters['task'] == 'delete':
+				returndata['http'] = 'delete'
 
 			if data.get('id'):
 				devid = data['id']
 				data.pop('id', None)
 			else:
-				for dev in parameters['devices']: #find id of device
-					for devdetail in dev:
-						if dev[devdetail] == data['name']:
-							devid = dev['id']
+				devid = self.findDeviceId(parameters['devices'], data['name'])
 
 			returndata['option'] = parameters['option'] + '/' + str(devid)
 
@@ -52,6 +52,16 @@ class Devices:
 		returndata['userinput'] = ''
 
 		return returndata
+
+
+	def findDeviceId(self, devdict, devname):
+		devid = ''
+
+		for devdetail in devdict:
+			if devdict[devdetail] == devname:
+				devid = str(devdetail)
+
+		return devid
 
 
 	def listall(self, blob):

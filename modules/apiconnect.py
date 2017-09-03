@@ -57,7 +57,9 @@ class Connect:
 
 		headers = {'content-type': 'application/json', 'Authorization':'Bearer %s' %self.apiconfig.auth_token}
 
-		if parameters.get('http') == 'PUT':
+		if parameters.get('http') == 'delete':
+			result = requests.delete(url, headers=headers, verify=False)
+		elif parameters.get('http') == 'put':
 			result = requests.put(url, data=postdata, headers=headers, verify=False)
 		else:
 			result = requests.post(url, data=postdata, headers=headers, verify=False)
