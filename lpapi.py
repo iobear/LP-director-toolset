@@ -6,49 +6,49 @@ from modules.main import API
 import argparse
 import json
 
-api = API('txt', '0')
+api = API('txt', '0', '')
 
 parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 parser.add_argument('--lpid', default=api.config.logpoint_identifier, help='logpoint server identifier from config.ini')
 parser.add_argument('--pool', default=api.config.pool, help='pool identifier from config.ini')
 parser.add_argument('task', default='', choices=['get', 'create', 'edit', 'restart'], help='update or get information')
-parser.add_argument('--parameter', default='', nargs='*', help='parameters for create, edit, update')
+parser.add_argument('--parameter', '-p', default='', nargs='*', help='parameters for create, edit, update')
 parser.add_argument('option', choices=['system', 'device', 'devicegroup', 'repo', 'opendoor', 'processpol', 'normpol', 'routepol', 'normpack', 'ntp', 'od', 'ppo', 'npo', 'npa', 'dev', 'dg', 'rpo'], help='what part do you what work with?')
 parser.add_argument('--output', default='txt', choices=['json', 'jsonraw', 'txt'], help='output format')
 parser.add_argument('--debug', default=0, choices=['0', '1'], help='enable API debug')
 
 
 args = parser.parse_args()
-api = API(args.output, args.debug)
+api = API(args.output, args.task, args.debug, args.parameter)
 
 if args.option == 'opendoor' or args.option == 'od':
-	api.openDoor(args.task, args.parameter)
+	api.openDoor()
 
 if args.option == 'repo':
-	api.repos(args.task, args.parameter)
+	api.repos()
 
 if args.option == 'system':
-	api.systemSettings(args.task, args.parameter)
+	api.systemSettings()
 
 if args.option == 'ntp':
-	api.systemSettingsNTP(args.task, args.parameter)
+	api.systemSettingsNTP()
 
 if args.option == 'processpol' or args.option == 'ppo':
-	api.processingPolicy(args.task, args.parameter)
+	api.processingPolicy()
 
 if args.option == 'normpol' or args.option == 'npo':
-	api.normalizationPolicy(args.task, args.parameter)
+	api.normalizationPolicy()
 
 if args.option == 'normpack' or args.option == 'npa':
-	api.normalizationPackage(args.task, args.parameter)
+	api.normalizationPackage()
 
 if args.option == 'routepol' or args.option == 'rpo':
-	api.routingPolicy(args.task, args.parameter)
+	api.routingPolicy()
 
 if args.option == 'device' or args.option == 'dev':
-		api.devices(args.task, args.parameter)
+	api.devices()
 
 if args.option == 'devicegroup' or args.option == 'dg':
-		api.deviceGroups(args.task, args.parameter)
+	api.deviceGroups()
 
 
