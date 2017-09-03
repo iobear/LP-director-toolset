@@ -1,15 +1,57 @@
 #!/usr/bin/env python
 
-import time
-
 class Devices:
 	"""docstring for Devices"""
 
+	def update(self, parameters):
+		"""docstring for changing a device"""
 
-	def create(self, parameters):
-		"""docstring for create device"""
-
+		returndata = {}
 		data = {}
+		ip = []
+		devicegroup = []
+		returndata['http'] = 'POST'
+		returndata['option'] = parameters['option']
+
+		data.update(parameters['default']) #add default device values to post data
+
+		for tmpdata in parameters['userinput']: #add user input to data dict
+
+			keyvalue = tmpdata.split('=')
+
+			if keyvalue[0].startswith( 'ip' ):
+				ip.append(keyvalue[1])
+				data['ip'] = ip
+
+			elif keyvalue[0].startswith( 'devicegroup' ):
+
+				for devgrp in parameters['devicegroups']: #find id to devicegroup
+					if parameters['devicegroups'][devgrp] == keyvalue[1]:
+					devgrpid = devgrp
+
+				devicegroup.append(devgrpid)
+				data['devicegroup'] = devicegroup
+			else:
+				data[keyvalue[0]] = keyvalue[1]
+
+		if parameters['task'] == 'edit':
+			returndata['http'] = 'PUT'
+
+			if data.get('id'):
+				devid = data['id']
+				data.pop('id', None)
+			else:
+				for dev in parameters['devices']: #find id of device
+					for devdetail in dev:
+						if dev[devdetail] == data['name']:
+							devid = dev['id']
+
+			returndata['option'] = parameters['option'] + '/' + str(devid)
+
+		returndata['data'] = data
+		returndata['userinput'] = ''
+
+		return returndata
 
 
 	def listall(self, blob):

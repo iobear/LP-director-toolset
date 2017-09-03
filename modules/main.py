@@ -76,6 +76,12 @@ class API:
 			result = self.connect.update(self.data)
 			self.show.printOrders(result)
 
+		if self.task == 'edit':
+			self.data['devices'] = self.connect.getOption('Devices')
+			self.data['default'] = self.config.default_device_parameters
+			self.data = self.device.update(self.data)
+			result = self.connect.update(self.data)
+			self.show.printOrders(result)
 
 	def openDoor(self):
 		if self.task == 'get':

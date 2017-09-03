@@ -1,4 +1,4 @@
-Made By DJbear
+Made By bjorn.jorgensen@logpoint.com
 
 I'm not done, this is early days
 
@@ -13,20 +13,23 @@ run ./lpapi.py for help
 
 Repo:
 ./lpapi.py get repo
+
+./lpapi.py edit repo --parameter id=59a992b31fa1ae0e1ee90020 retention=22
+
 ./lpapi.py create repo --parameter name=Windows
 ./lpapi.py create repo --parameter name=Windows retention=36
 ./lpapi.py create repo --parameter name=Windows retention=36 path=/opt/immune/storage2/
-#keep the path/retention in pairs:
+keep the path/retention in pairs:
 ./lpapi.py create repo --parameter name=Windows retention=30 path=/opt/immune/storage/ path=/opt/immune/morestorage/ retention=120
-
 
 
 Device:
 ./lpapi.py get device
-
-./lpapi.py create device --parameter ip=10.1.1.3 name=winserver
-
+create:
+./lpapi.py create device --parameter name=winserver ip=10.1.1.3
 ./lpapi.py create device --parameter ip=10.1.1.3 ip=10.1.1.4 name=winserver
+edit:
+./lpapi.py edit device --parameter name=winserv01 ip=10.8.9.9 devicegroup=windows devicegroup=printer
 
 
 Devicegroup:

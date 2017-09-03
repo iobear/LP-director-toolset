@@ -13,8 +13,8 @@ class Connect:
 	def __init__(self):
 		self.apiconfig = ApiConfig()
 
-	def update(self, parameters):
 
+	def update(self, parameters):
 		kvdata = {} 
 		data = {}
 		ip = []
@@ -33,6 +33,7 @@ class Connect:
 				kvdata['ip'] = ip
 
 			elif keyvalue[0].startswith( 'devicegroup' ):
+
 				devicegroup.append(keyvalue[1])
 				kvdata['devicegroup'] = devicegroup
 
@@ -43,8 +44,9 @@ class Connect:
 			else:
 				kvdata[keyvalue[0]] = keyvalue[1]
 
+
 		if parameters.get('data'):
-			data = parameters
+			data['data'] = parameters['data']
 		else:
 			data['data'] = kvdata
 
@@ -53,12 +55,10 @@ class Connect:
 		apipath = '/configapi/v1/' + self.apiconfig.pool + '/' + self.apiconfig.logpoint_identifier + '/' + parameters['option']
 		url = 'https://' + self.apiconfig.apihost + apipath
 
-
 		headers = {'content-type': 'application/json', 'Authorization':'Bearer %s' %self.apiconfig.auth_token}
 
 		if parameters.get('http') == 'PUT':
 			result = requests.put(url, data=postdata, headers=headers, verify=False)
-
 		else:
 			result = requests.post(url, data=postdata, headers=headers, verify=False)
 
