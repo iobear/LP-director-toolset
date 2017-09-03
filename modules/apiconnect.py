@@ -28,16 +28,7 @@ class Connect:
 
 			keyvalue = tmpdata.split('=')
 
-			if keyvalue[0].startswith( 'ip' ):
-				ip.append(keyvalue[1])
-				kvdata['ip'] = ip
-
-			elif keyvalue[0].startswith( 'devicegroup' ):
-
-				devicegroup.append(keyvalue[1])
-				kvdata['devicegroup'] = devicegroup
-
-			elif keyvalue[0].startswith( 'ntp_server' ):
+			if keyvalue[0].startswith( 'ntp_server' ):
 				ntp_server.append(keyvalue[1])
 				kvdata['ntp_server'] = ntp_server
 
@@ -51,15 +42,15 @@ class Connect:
 			data['data'] = kvdata
 
 		postdata = json.dumps(data)
-	
+
 		apipath = '/configapi/v1/' + self.apiconfig.pool + '/' + self.apiconfig.logpoint_identifier + '/' + parameters['option']
 		url = 'https://' + self.apiconfig.apihost + apipath
 
 		headers = {'content-type': 'application/json', 'Authorization':'Bearer %s' %self.apiconfig.auth_token}
 
-		if parameters.get('http') == 'delete':
+		if parameters.get('task') == 'delete':
 			result = requests.delete(url, headers=headers, verify=False)
-		elif parameters.get('http') == 'put':
+		elif parameters.get('task') == 'edit':
 			result = requests.put(url, data=postdata, headers=headers, verify=False)
 		else:
 			result = requests.post(url, data=postdata, headers=headers, verify=False)

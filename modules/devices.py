@@ -10,10 +10,15 @@ class Devices:
 		data = {}
 		ip = []
 		devicegroup = []
-		returndata['http'] = 'POST'
+		returndata['task'] = parameters['task']
 		returndata['option'] = parameters['option']
 
 		data.update(parameters['default']) #add default device values to post data
+
+		if parameters.get('data'):
+			parameters['userinput'] = ''
+			for line in parameters['data']['data']: #add data to defaults from config.ini
+				data[line] = parameters['data']['data'][line]
 
 		for tmpdata in parameters['userinput']: #add user input to data dict
 
@@ -25,20 +30,12 @@ class Devices:
 
 			elif keyvalue[0].startswith( 'devicegroup' ):
 
-				for devgrp in parameters['devicegroups']: #find id to devicegroup
-					if parameters['devicegroups'][devgrp] == keyvalue[1]:
-						devgrpid = devgrp
-
-				devicegroup.append(devgrpid)
-				devgrpid = ''
+				devicegroup.append(keyvalue[1])
 				data['devicegroup'] = devicegroup
 			else:
 				data[keyvalue[0]] = keyvalue[1]
 
 		if parameters['task'] == 'edit' or parameters['task'] == 'delete':
-			returndata['http'] = 'put'
-			if parameters['task'] == 'delete':
-				returndata['http'] = 'delete'
 
 			if data.get('id'):
 				devid = data['id']
@@ -47,6 +44,13 @@ class Devices:
 				devid = self.findDeviceId(parameters['devices'], data['name'])
 
 			returndata['option'] = parameters['option'] + '/' + str(devid)
+
+		for line in data: #find dev grp id's
+			if line == 'devicegroup':
+				for i, grpname in enumerate(data[line]):
+					devgrpid = self.findDeviceId(parameters['devicegroups'], grpname)
+					data['devicegroup'][i] = devgrpid
+					devgrpid = ''
 
 		returndata['data'] = data
 		returndata['userinput'] = ''

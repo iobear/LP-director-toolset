@@ -15,11 +15,12 @@ parser.add_argument('task', default='', choices=['get', 'create', 'edit', 'delet
 parser.add_argument('--parameter', '-p', default='', nargs='*', help='parameters for create, edit, update')
 parser.add_argument('option', choices=['system', 'device', 'devicegroup', 'repo', 'opendoor', 'processpol', 'normpol', 'routepol', 'normpack', 'ntp', 'od', 'ppo', 'npo', 'npa', 'dev', 'dg', 'rpo'], help='what part do you what work with?')
 parser.add_argument('--output', '-o', default='txt', choices=['json', 'jsonraw', 'txt'], help='output format')
+parser.add_argument('--file', '-f', default='', help='file for batch import')
 parser.add_argument('--debug', default=0, choices=['0', '1'], help='enable API debug')
 
 
 args = parser.parse_args()
-api = API(args.output, args.task, args.debug, args.parameter)
+api = API(args.output, args.task, args.debug, args.parameter, args.file)
 
 if args.option == 'opendoor' or args.option == 'od':
 	api.openDoor()

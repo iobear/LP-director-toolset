@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 #
 
+import json
 import time
 from apiconnect import Connect
 from devicegroups import DeviceGroups
@@ -29,11 +30,12 @@ class API:
 	opendoor = OpenDoor()
 	systemsettingsntp = SystemSettingsNTP()
 
-	def __init__(self, out, task, debug, parameter = ''):
+	def __init__(self, out, task, debug, parameter = '', file = ''):
 		self.show = Format(out, debug)
 		self.task = task
 		self.data['task'] = task
 		self.data['userinput'] = parameter
+		self.file = file
 
 
 	def repos(self):
@@ -46,7 +48,7 @@ class API:
 
 		if self.task == 'edit':
 			self.data = self.repo.update(self.data)
-			self.data['http'] = 'put'
+			#self.data['http'] = 'put'
 			result = self.connect.update(self.data)
 			self.show.printOrders(result)
 
@@ -75,14 +77,19 @@ class API:
 			self.data = self.device.listall(self.data)
 			self.show.printformat(self.data['devicelist'])
 
-		if self.task == 'create':
-			result = self.connect.update(self.data)
-			self.show.printOrders(result)
+		if self.task in ['edit', 'delete', 'create']:
+			if self.file:
+				tasks = self.readJsonFile()
+				for taskdata in tasks:
+					self.data['data'] = taskdata
+					enriched = self.device.update(self.data)
+					result = self.connect.update(enriched)
+					self.show.printOrders(result)
 
-		if self.task == 'edit' or self.task == 'delete':
-			self.data = self.device.update(self.data)
-			result = self.connect.update(self.data)
-			self.show.printOrders(result)
+			else:
+				self.data = self.device.update(self.data)
+				result = self.connect.update(self.data)
+				self.show.printOrders(result)
 
 
 	def openDoor(self):
@@ -190,3 +197,8 @@ class API:
 			returndict[stuff['id']] = stuff[item]
 
 		return returndict
+
+
+	def readJsonFile(self):
+		with open(self.file) as json_data:
+			return json.load(json_data)
