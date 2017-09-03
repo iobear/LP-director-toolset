@@ -34,6 +34,10 @@ edit:
 delete:
 ./lpapi.py delete device --parameter name=server03
 ./lpapi.py delete device --parameter id=59aa711a1fa1ae103f429795
+file import:
+./lpapi.py create device --file import.json
+./lpapi.py edit device --file import.json
+./lpapi.py delete device --file import.json
 
 
 Devicegroup:
