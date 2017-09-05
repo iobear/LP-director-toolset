@@ -1,0 +1,5 @@
+[
+{"data": {"devicegroup": ["linux"], "name": "linuxserver03", "ip": ["10.199.19.8"], "timezone":"Europe/Brussels"}},
+{"data": {"name": "linuxserver04", "ip": ["10.199.19.11","10.199.199.12"]}},
+{"data": {"devicegroup": ["windows","linux"], "name": "dual05", "ip": ["10.199.19.5"]}}
+]
