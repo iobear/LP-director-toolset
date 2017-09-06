@@ -22,3 +22,5 @@ class ApiConfig:
 	confidentiality = config['DEVICE']['confidentiality']
 
 	default_repo_parameters = config.items( "REPO" )
+
+	default_collector_parameters = config.items( "SYSLOGCOLLECTOR" )

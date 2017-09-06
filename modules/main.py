@@ -15,6 +15,7 @@ from normalizationpolicy import NormalizationPolicy
 from normalizationpackage import NormalizationPackage
 from opendoor import OpenDoor
 from systemsettingsntp import SystemSettingsNTP
+from syslogcollector import SyslogCollector
 
 class API:
 	data = {}
@@ -29,6 +30,7 @@ class API:
 	normalizationpackage = NormalizationPackage()
 	opendoor = OpenDoor()
 	systemsettingsntp = SystemSettingsNTP()
+	syslogcollector	= SyslogCollector()
 
 	def __init__(self, out, task, debug, parameter = '', file = ''):
 		self.show = Format(out, debug)
@@ -36,6 +38,20 @@ class API:
 		self.data['task'] = task
 		self.data['userinput'] = parameter
 		self.file = file
+
+	def syslogcollectors(self):
+		self.data['option'] = 'SyslogCollector'
+		self.data['default'] = self.config.default_collector_parameters
+		self.data['ppapi'] = self.connect.getOption('ProcessingPolicy')
+		self.data['processingpolicy'] = self.processingpolicy.getNamesOnly(self.data['ppapi'])
+		self.data['deviceapi'] = self.connect.getOption('Devices')
+		self.data['devices'] = self.namesOnly(self.data['deviceapi'], 'name')
+
+
+		if self.task in ['edit', 'delete', 'create']:
+			self.data = self.syslogcollector.update(self.data)
+			result = self.connect.update(self.data)
+			self.show.printOrders(result)
 
 
 	def repos(self):

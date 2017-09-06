@@ -4,17 +4,6 @@
 class ProcessingPolicy:
 	"""docstring for ProcessingPolicy"""
 
-	# def create(self, parameters):
-	# 	data = {}
-
-	# 	callapi = Connect('ProcessingPolicy')
-		
-	# 	data['userinput'] = parameters
-	# 	data['default'] = ''
-	# 	result = callapi.postoption(data)
-
-	# 	print (result)
-
 	def getNamesOnly(self, data):
 		returndict = {}
 

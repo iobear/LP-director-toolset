@@ -12,6 +12,7 @@ class Format:
 		self.out = out
 		self.debug = debug
 
+
 	def printformat(self, printthis):
 
 		if self.out == 'json':
@@ -48,10 +49,10 @@ class Format:
 			self.printformat([orderresult.get('response')])
 
 
-	def rotatePrint(self, printthis):
+	def rotatePrint(self, printthis): #print dict vertical, instead of horizontal
 
 		if self.out == 'json':
-			print (printthis)
+			print (json.dumps(printthis))
 
 		elif self.out == 'txt':
 
