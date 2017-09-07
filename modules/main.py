@@ -49,9 +49,18 @@ class API:
 
 
 		if self.task in ['edit', 'delete', 'create']:
-			self.data = self.syslogcollector.update(self.data)
-			result = self.connect.update(self.data)
-			self.show.printOrders(result)
+			if self.file:
+				tasks = self.readJsonFile()
+				for taskdata in tasks:
+					self.data['data'] = taskdata
+					enriched = self.syslogcollector.update(self.data)
+					result = self.connect.update(enriched)
+					self.show.printOrders(result)
+
+			else:
+				self.data = self.syslogcollector.update(self.data)
+				result = self.connect.update(self.data)
+				self.show.printOrders(result)
 
 
 	def repos(self):

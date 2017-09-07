@@ -1,8 +1,10 @@
 Made By bjorn.jorgensen@logpoint.com
 
-I'm not done, this is early days
+Version 1.0
 
-Requires python packages:
+Install required python packages:
+easy_install requests configparser tabulate
+or
 pip install requests configparser tabulate
 
 update config.ini with API host, API key and ID of Logpoint server
@@ -39,6 +41,8 @@ file import:
 ./lpapi.py edit device --file import.json
 ./lpapi.py delete device --file import.json
 
+Syslog collector:
+./lpapi.py create syslogcollect -p processpolicy=default name=linuxserver03
 
 Devicegroup:
 ./lpapi.py get devicegroup

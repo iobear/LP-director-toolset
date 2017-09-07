@@ -12,7 +12,7 @@ class SyslogCollector:
 		returndata['task'] = parameters['task']
 		returndata['option'] = parameters['option']
 
-		data.update(parameters['default']) #add default device values to post data
+		data.update(parameters['default']) #add default syslogcollector values to post data
 
 		if parameters.get('data'):
 			parameters['userinput'] = ''
