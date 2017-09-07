@@ -73,7 +73,6 @@ class API:
 
 		if self.task == 'edit':
 			self.data = self.repo.update(self.data)
-			#self.data['http'] = 'put'
 			result = self.connect.update(self.data)
 			self.show.printOrders(result)
 

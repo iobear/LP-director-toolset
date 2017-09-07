@@ -12,6 +12,7 @@ class Repos:
 
 		#build datastructure
 		returndata = {}
+		returndata['task'] = data['task']
 		returndata['option'] = 'Repos'
 		returndata['userinput'] = ''
 		returndata['data'] = {}
