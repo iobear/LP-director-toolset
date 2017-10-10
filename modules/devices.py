@@ -79,6 +79,7 @@ class Devices:
 			tmpdict['id'] = devices['id']
 			tmpdict['name'] = devices['name']
 			tmpdict['active'] = devices['active']
+			tmpdict['timezone'] = devices.get('timezone')
 			
 			ips = data[i]['ip']
 
