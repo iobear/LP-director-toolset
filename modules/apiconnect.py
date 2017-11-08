@@ -43,8 +43,8 @@ class Connect:
 
 		postdata = json.dumps(data)
 
-		apipath = '/configapi/v1/' + self.apiconfig.pool + '/' + self.apiconfig.logpoint_identifier + '/' + parameters['option']
-		url = 'https://' + self.apiconfig.apihost + apipath
+		api_path = self.apiconfig.api_init_path + self.apiconfig.pool + '/' + self.apiconfig.logpoint_identifier + '/' + parameters['option']
+		url = self.apiconfig.api_host + api_path
 
 		headers = {'content-type': 'application/json', 'Authorization':'Bearer %s' %self.apiconfig.auth_token}
 
@@ -62,7 +62,7 @@ class Connect:
 
 	def getMonitor(self, apipath):
 
-		endpoint = 'https://' + self.apiconfig.apihost + '/' + apipath
+		endpoint = self.apiconfig.host + '/' + apipath
 
 		headers = {"Authorization":"Bearer %s" %self.apiconfig.auth_token}
 
@@ -75,8 +75,8 @@ class Connect:
 
 	def getOption(self, option):
 
-		apipath = '/configapi/v1/' + self.apiconfig.pool + '/' + self.apiconfig.logpoint_identifier + '/' + option
-		endpoint = 'https://' + self.apiconfig.apihost + apipath
+		api_path = self.apiconfig.init_path + self.apiconfig.pool + '/' + self.apiconfig.logpoint_identifier + '/' + option
+		endpoint = self.apiconfig.host + api_path
 
 		headers = {"Authorization":"Bearer %s" %self.apiconfig.auth_token}
 

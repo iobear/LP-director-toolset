@@ -9,7 +9,8 @@ class ApiConfig:
 	config = configparser.ConfigParser()
 	config.read('config.ini')
 
-	apihost = config['API']['apihost']
+	host = config['API']['host']
+	init_path = config['API']['init_path']
 	auth_token = config['API']['auth_token']
 
 	logpoint_identifier = config['LPID'][config['LPID']['default']]
