@@ -23,7 +23,6 @@ class API:
 	config = ApiConfig()
 	device = Devices()
 	repo = Repos()
-	connect = Connect()
 	orders = Orders()
 	processingpolicy = ProcessingPolicy()
 	normalizationpolicy = NormalizationPolicy()
@@ -32,12 +31,16 @@ class API:
 	systemsettingsntp = SystemSettingsNTP()
 	syslogcollector	= SyslogCollector()
 
-	def __init__(self, out, task, debug, parameter = '', file = ''):
-		self.show = Format(out, debug)
-		self.task = task
-		self.data['task'] = task
-		self.data['userinput'] = parameter
-		self.file = file
+
+	def __init__(self, args):
+		self.connect = Connect(args.lphost)
+		self.show = Format(args.output, args.debug)
+		self.task = args.task
+		self.data['task'] = args.task
+		self.data['userinput'] = args.parameter
+		self.file = args.file
+		self.lphost = args.lphost
+
 
 	def syslogcollectors(self):
 		self.data['option'] = 'SyslogCollector'
@@ -114,6 +117,14 @@ class API:
 				self.data = self.device.update(self.data)
 				result = self.connect.update(self.data)
 				self.show.printOrders(result)
+
+
+	def distributedLogpoints(self):
+
+		if self.task == 'get':
+			self.data['dlp'] = self.connect.getOption('DistributedLogpoints')
+
+			self.show.printformat(self.data['dlp'])
 
 
 	def openDoor(self):

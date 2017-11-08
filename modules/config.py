@@ -13,7 +13,8 @@ class ApiConfig:
 	init_path = config['API']['init_path']
 	auth_token = config['API']['auth_token']
 
-	logpoint_identifier = config['LPID'][config['LPID']['default']]
+	lpid_host = config['LPID']
+	LPID_default = config['LPID'][config['LPID']['default']]
 	pool = config['POOL'][config['POOL']['default']]
 
 	default_device_parameters = config.items( "DEVICE" )

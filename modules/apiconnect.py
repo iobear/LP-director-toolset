@@ -10,9 +10,19 @@ requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
 class Connect:
 
-	def __init__(self):
-		self.apiconfig = ApiConfig()
+	def __init__(self, lphost = ''):
+		self.config = ApiConfig()
 
+		if not lphost:
+			lphost = self.config.lpid_host.get('default')
+
+		self.lpid = self.config.lpid_host.get(lphost)
+
+		if not self.lpid:
+			print
+			print ('{"status": "error host not found in config.ini"}')
+			print
+			raise SystemExit, 1
 
 	def update(self, parameters):
 		kvdata = {} 
@@ -43,10 +53,10 @@ class Connect:
 
 		postdata = json.dumps(data)
 
-		api_path = self.apiconfig.api_init_path + self.apiconfig.pool + '/' + self.apiconfig.logpoint_identifier + '/' + parameters['option']
-		url = self.apiconfig.api_host + api_path
+		api_path = self.config.init_path + self.config.pool + '/' + self.lpid + '/' + parameters['option']
+		url = self.config.host + api_path
 
-		headers = {'content-type': 'application/json', 'Authorization':'Bearer %s' %self.apiconfig.auth_token}
+		headers = {'content-type': 'application/json', 'Authorization':'Bearer %s' %self.config.auth_token}
 
 		if parameters.get('task') == 'delete':
 			result = requests.delete(url, headers=headers, verify=False)
@@ -62,9 +72,9 @@ class Connect:
 
 	def getMonitor(self, apipath):
 
-		endpoint = self.apiconfig.host + '/' + apipath
+		endpoint = self.config.host + '/' + apipath
 
-		headers = {"Authorization":"Bearer %s" %self.apiconfig.auth_token}
+		headers = {"Authorization":"Bearer %s" %self.config.auth_token}
 
 		result = requests.get(endpoint,headers=headers,verify=False)
 
@@ -75,10 +85,10 @@ class Connect:
 
 	def getOption(self, option):
 
-		api_path = self.apiconfig.init_path + self.apiconfig.pool + '/' + self.apiconfig.logpoint_identifier + '/' + option
-		endpoint = self.apiconfig.host + api_path
+		api_path = self.config.init_path + self.config.pool + '/' + self.lpid + '/' + option
+		endpoint = self.config.host + api_path
 
-		headers = {"Authorization":"Bearer %s" %self.apiconfig.auth_token}
+		headers = {"Authorization":"Bearer %s" %self.config.auth_token}
 
 		result = requests.get(endpoint,headers=headers,verify=False)
 

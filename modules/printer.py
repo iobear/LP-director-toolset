@@ -8,6 +8,7 @@ from orders import Orders
 
 class Format:
 	"""docstring for Printer"""
+
 	def __init__(self, out, debug = 0):
 		self.out = out
 		self.debug = debug
