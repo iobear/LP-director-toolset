@@ -64,8 +64,23 @@ Process policy:
 
 OpenDoor:
 ./lpapi.py get opendoor
+./lpapi.py create opendoor -lph lp1 -p network=10.172.100.1 netmask=255.255.255.128 password=oJO0X2IbFeWfk opened=on
 
-./lpapi.py create opendoor --parameter network=10.172.100.1 netmask=255.255.255.128 password=oJO0X2IbFeWfk opened=on
+
+Distributedlogpoint:
+./lpapi.py get dlp
+
+./lpapi.py create dlp -p ip_dns=10.199.199.116 private_ip=10.172.100.1 password=oJO0X2IbFeWfk
+or:
+./lpapi.py create distributedlogpoint -lph lpcol1 -p ip_dns=10.199.199.116 private_ip=10.172.100.1 password=oJO0X2IbFeWfk
+
+
+DistributedCollector:
+./lpapi.py refresh dcol
+
+./lpapi.py get dcol
+
+./lpapi.py activate dcol -p id=5a03715c2a94c7711ed0670b
 
 
 NTP:
