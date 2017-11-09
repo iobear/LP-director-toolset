@@ -1,0 +1,5 @@
+[
+{"data": {"processpolicy": "default", "name": "linuxserver03"}},
+{"data": {"processpolicy": "default", "name" : "linuxserver04"}},
+{"data": {"processpolicy": "default", "name" : "winsrv" ,"charset": "utf_8"}}
+]

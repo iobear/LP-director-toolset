@@ -1,0 +1,80 @@
+Made By bjorn.jorgensen@logpoint.com
+
+Version 1.0
+
+Install required python packages:
+easy_install requests configparser tabulate
+or
+pip install requests configparser tabulate
+
+update config.ini with API host, API key and ID of Logpoint server
+
+examples:
+
+run ./lpapi.py for help
+
+Repo:
+./lpapi.py get repo
+
+./lpapi.py edit repo --parameter id=59a992b31fa1ae0e1ee90020 retention=22
+
+./lpapi.py create repo --parameter name=Windows
+./lpapi.py create repo --parameter name=Windows retention=36
+./lpapi.py create repo --parameter name=Windows retention=36 path=/opt/immune/storage2/
+keep the path/retention in pairs:
+./lpapi.py create repo --parameter name=Windows retention=30 path=/opt/immune/storage/ path=/opt/immune/morestorage/ retention=120
+
+
+Device:
+./lpapi.py get device
+create:
+./lpapi.py create device --parameter name=winserver ip=10.1.1.3
+./lpapi.py create device --parameter ip=10.1.1.3 ip=10.1.1.4 name=winserver
+edit:
+./lpapi.py edit device --parameter ip=10.8.9.9 id=59aa711a1fa1ae103f429795
+./lpapi.py edit device --parameter name=winserv01 ip=10.8.9.9 devicegroup=windows devicegroup=printer
+delete:
+./lpapi.py delete device --parameter name=server03
+./lpapi.py delete device --parameter id=59aa711a1fa1ae103f429795
+file import:
+./lpapi.py create device --file import.json
+./lpapi.py edit device --file import.json
+./lpapi.py delete device --file import.json
+
+Syslog collector:
+./lpapi.py create syslogcollect -p processpolicy=default name=linuxserver03
+
+Devicegroup:
+./lpapi.py get devicegroup
+
+./lpapi.py create devicegroup --parameter name=testgrp description=tester
+
+
+Normalization:
+./lpapi.py get normpack
+
+
+Normalization policy:
+./lpapi.py get normpol
+
+
+Process policy:
+./lpapi.py get processpol
+
+
+OpenDoor:
+./lpapi.py get opendoor
+
+./lpapi.py create opendoor --parameter network=10.172.100.1 netmask=255.255.255.128 password=oJO0X2IbFeWfk opened=on
+
+
+NTP:
+./lpapi.py create ntp --parameter ntp_enabled=on ntp_server=10.199.199.2
+
+./lpapi.py create ntp --parameter ntp_server=10.199.199.2 ntp_server=10.199.199.3
+
+./lpapi.py restart ntp
+
+
+System:
+./lpapi.py get system
