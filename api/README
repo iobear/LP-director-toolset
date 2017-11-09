@@ -97,8 +97,13 @@ System:
 SupportConnection:
 ./lpapi.py get supportconnection
 
-./lpapi.py create supcon -p support_connection=on connection_forever=true
+./lpapi.py create support -p support_connection=on connection_forever=true
 or with time:
-./lpapi.py create supcon -p support_connection=on enable_hours=0 enable_days=1 enable_minutes=0
+./lpapi.py create support -p support_connection=on enable_hours=0 enable_days=1 enable_minutes=0
 
-./lpapi.py refresh supcon
+./lpapi.py refresh support
+
+SSH key:
+./lpapi.py get ssh
+
+./lpapi.py create ssh -p pass_phrase=QoYjPhfhs8boQ

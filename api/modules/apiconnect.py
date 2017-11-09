@@ -57,8 +57,7 @@ class Connect:
 
 		if parameters.get('task') == 'activate':
 			parameters['option'] = parameters['option'] + '/' + data['data']['id'] + '/activate'
-		# 	data['data'] = {}
-
+			data['data'] = {}
 
 		postdata = json.dumps(data)
 

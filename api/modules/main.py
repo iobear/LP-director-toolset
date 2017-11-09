@@ -264,6 +264,18 @@ class API:
 			self.show.printOrders(result)
 
 
+	def systemSettingsSSH(self):
+
+		if self.task == 'get':
+			self.data['SSSSH'] = self.connect.getOption('SystemSettingsSSH')
+			self.show.printformat(self.data['SSSSH'])
+
+		if self.task == 'create' or self.task == 'save':
+			self.data['option'] = 'SystemSettingsSSH'
+			result = self.connect.update(self.data)
+			self.show.printOrders(result)
+
+
 	def namesOnly(self, data, item):
 		returndict = {}
 
