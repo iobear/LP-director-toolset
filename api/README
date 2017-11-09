@@ -21,6 +21,8 @@ Repo:
 keep the path/retention in pairs:
 ./lpapi.py create repo --parameter name=Windows retention=30 path=/opt/immune/storage/ path=/opt/immune/morestorage/ retention=120
 
+./lpapi.py delete repo -p id=59fc31f62a94c726fcefcf4c
+
 
 Device:
 ./lpapi.py get device

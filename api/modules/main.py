@@ -85,7 +85,9 @@ class API:
 			self.show.printOrders(result)
 
 		if self.task == 'delete' or self.task == 'trash':
-			pass
+			self.data = self.repo.update(self.data)
+			result = self.connect.update(self.data)
+			self.show.printOrders(result)
 
 
 	def devices(self):
