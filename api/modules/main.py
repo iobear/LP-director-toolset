@@ -256,7 +256,11 @@ class API:
 			self.data['option'] = 'SystemSettingsSupportConnection/refreshlist'
 			self.data['userinput'] = ['data=true']
 			result = self.connect.update(self.data)
+			self.show.printOrders(result)
 
+		if self.task == 'create' or self.task == 'save':
+			self.data['option'] = 'SystemSettingsSupportConnection'
+			result = self.connect.update(self.data)
 			self.show.printOrders(result)
 
 

@@ -44,6 +44,9 @@ class Connect:
 				kvdata['ntp_server'] = ntp_server
 
 			else:
+				if keyvalue[1].isdigit():
+					keyvalue[1] = int(keyvalue[1])
+
 				kvdata[keyvalue[0]] = keyvalue[1]
 
 
