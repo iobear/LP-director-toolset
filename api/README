@@ -1,8 +1,5 @@
-Made By bjorn.jorgensen@logpoint.com
-
-Version 1.0
-
 Install required python packages:
+
 easy_install requests configparser tabulate
 or
 pip install requests configparser tabulate
