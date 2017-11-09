@@ -120,11 +120,30 @@ class API:
 
 
 	def distributedLogpoints(self):
-
 		if self.task == 'get':
 			self.data['dlp'] = self.connect.getOption('DistributedLogpoints')
-
 			self.show.printformat(self.data['dlp'])
+
+		if self.task == 'create':
+			self.data['option'] = 'DistributedLogpoints'
+			result = self.connect.update(self.data)
+			self.show.printOrders(result)
+
+
+	def distributedCollectors(self):
+		if self.task == 'get':
+			self.data['dcol'] = self.connect.getOption('DistributedCollectors')
+			self.show.printformat(self.data['dcol'])
+
+		if self.task == 'create' or self.task == 'activate':
+			self.data['option'] = 'DistributedCollectors'
+			result = self.connect.update(self.data)
+			self.show.printOrders(result)
+
+		if self.task == 'refresh':
+			self.data['option'] = 'DistributedCollectors/refreshlist'
+			result = self.connect.update(self.data)
+			self.show.printOrders(result)
 
 
 	def openDoor(self):

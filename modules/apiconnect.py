@@ -24,6 +24,7 @@ class Connect:
 			print
 			raise SystemExit, 1
 
+
 	def update(self, parameters):
 		kvdata = {} 
 		data = {}
@@ -51,9 +52,18 @@ class Connect:
 		else:
 			data['data'] = kvdata
 
+		if parameters.get('task') == 'activate':
+			parameters['option'] = parameters['option'] + '/' + data['data']['id'] + '/activate'
+		# 	data['data'] = {}
+
+
 		postdata = json.dumps(data)
 
 		api_path = self.config.init_path + self.config.pool + '/' + self.lpid + '/' + parameters['option']
+		# Debug
+		# print ('Api path')
+		# print api_path
+
 		url = self.config.host + api_path
 
 		headers = {'content-type': 'application/json', 'Authorization':'Bearer %s' %self.config.auth_token}
@@ -63,7 +73,11 @@ class Connect:
 		elif parameters.get('task') == 'edit':
 			result = requests.put(url, data=postdata, headers=headers, verify=False)
 		else:
+			# Debug
+			# print ('Post data:')
+			# print (postdata)
 			result = requests.post(url, data=postdata, headers=headers, verify=False)
+			# print ('Result order:')
 
 		result = self.errorCheck(result)
 
@@ -127,6 +141,8 @@ class Connect:
 
 		elif message.get('error') == 1: #TODO should not exit here, but return in select format
 			print
+			print jresult
+			print ('BNJ')
 			print (json.dumps(jresult))
 			print
 			raise SystemExit, 1
