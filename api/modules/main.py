@@ -246,6 +246,20 @@ class API:
 			self.show.printformat(self.data['rpapi'])
 
 
+	def supportConnection(self):
+
+		if self.task == 'get':
+			self.data['supcon'] = self.connect.getOption('SystemSettingsSupportConnection')
+			self.show.printformat(self.data['supcon'])
+
+		if self.task == 'refresh':
+			self.data['option'] = 'SystemSettingsSupportConnection/refreshlist'
+			self.data['userinput'] = ['data=true']
+			result = self.connect.update(self.data)
+
+			self.show.printOrders(result)
+
+
 	def namesOnly(self, data, item):
 		returndict = {}
 

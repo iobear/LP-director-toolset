@@ -141,8 +141,6 @@ class Connect:
 
 		elif message.get('error') == 1: #TODO should not exit here, but return in select format
 			print
-			print jresult
-			print ('BNJ')
 			print (json.dumps(jresult))
 			print
 			raise SystemExit, 1

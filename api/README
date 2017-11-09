@@ -92,3 +92,9 @@ NTP:
 
 System:
 ./lpapi.py get system
+
+
+SupportConnection:
+./lpapi.py get supportconnection
+
+./lpapi.py refresh supcon
