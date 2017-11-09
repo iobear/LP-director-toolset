@@ -23,15 +23,6 @@ charset = utf_8
 parser = LineParser
 proxy_condition = None
 
-[SYSTEM]
-overscan_period = 10
-timezone = Europe/Amsterdam
-lp_mode = dlp
-ha_default_path = /opt/immune/storage/
-default_auth = LogpointAuthentication
-timestamp_on = log_ts
-timeout = 15
-
 [API]
 host = https://lpapi.logpoint.com
 init_path = /configapi/v1/
