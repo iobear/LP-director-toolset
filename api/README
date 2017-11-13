@@ -10,6 +10,21 @@ examples:
 
 run ./lpapi.py for help
 
+Logpoint host:
+Making a request or update uses the default host in config.ini
+If you what to specify the host in cli use: -lph <host of config.ini>
+example collector:
+./lpapi.py get system -lph lpcol
+example search head:
+./lpapi.py get system -lph lpsh
+
+System:
+./lpapi.py get system
+
+update system:
+/lpapi.py update system -p li_name=lpcol li_ip=10.199.199.115 ha_default_path=/opt/immune/storage/ timestamp_on=col_ts timezone=Europe/Amsterdam overscan_period=10 lp_mode=dlp default_auth=LogpointAuthentication timeout=15 -o json
+
+
 Repo:
 ./lpapi.py get repo
 
@@ -88,10 +103,6 @@ NTP:
 ./lpapi.py create ntp --parameter ntp_server=10.199.199.2 ntp_server=10.199.199.3
 
 ./lpapi.py restart ntp
-
-
-System:
-./lpapi.py get system
 
 
 SupportConnection:
