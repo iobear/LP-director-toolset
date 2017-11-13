@@ -12,7 +12,7 @@ import json
 parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 parser.add_argument('--lphost', '-lph', help='logpoint server name from config.ini')
 parser.add_argument('--pool', help='pool name from config.ini')
-parser.add_argument('task', default='', choices=['get', 'create', 'edit', 'delete', 'restart', 'refresh', 'activate','save'], help='update or get information')
+parser.add_argument('task', default='', choices=['get', 'create', 'edit', 'delete', 'restart', 'refresh', 'activate','save','update'], help='update or get information')
 parser.add_argument('--parameter', '-p', default='', nargs='*', help='parameters for create, edit, update')
 parser.add_argument('option', choices=['system', 'device', 'devicegroup', 'repo', 'syslogcollect', 'opendoor', 'processpol', 'normpol', 'routepol', 'normpack', 'ntp', 'syscol', 'od', 'ppo', 'npo', 'npa', 'dev', 'dg', 'rpo','dlp', 'distributedlogpoint','distributedcollectors','dcol','supportconnection','support','sshkey','ssh'], help='what part do you what work with?')
 parser.add_argument('--output', '-o', default='txt', choices=['json', 'txt'], help='output format')

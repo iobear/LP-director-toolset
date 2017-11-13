@@ -183,7 +183,7 @@ class API:
 
 			self.show.rotatePrint(self.data['systemsettingsapi'])
 
-		if self.task == 'create':
+		if self.task == 'create' or self.task == 'update':
 			self.data['option'] = 'SystemSettingsGeneral'
 			result = self.connect.update(self.data)
 			self.show.printOrders(result)		
