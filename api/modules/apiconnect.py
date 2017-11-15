@@ -12,6 +12,8 @@ class Connect:
 
 	def __init__(self, lphost = ''):
 		self.config = ApiConfig()
+		self.debug = self.config.debug
+		self.get_token()
 
 		if not lphost:
 			lphost = self.config.lpid_host.get('default')
@@ -19,10 +21,33 @@ class Connect:
 		self.lpid = self.config.lpid_host.get(lphost)
 
 		if not self.lpid:
-			print
-			print ('{"status": "error host not found in config.ini"}')
-			print
+			print ()
+			print ('{"status": "error: host not found in config.ini"}')
+			print ()
 			raise SystemExit, 1
+
+
+	def get_token(self):
+
+		self.lp_api_token = self.config.auth_token
+
+		if self.lp_api_token:
+			return
+
+		postdata = {}
+
+		if self.debug:
+			print('-- No token defined  --')
+
+		url = self.config.host + '/login'
+		headers = {'content-type': 'application/json'}
+
+		postdata['username'] = self.config.username
+		postdata['password'] = self.config.password
+
+		result = requests.post(url, data=json.dumps(postdata), headers=headers, verify=False)
+		jresult = result.json()
+		self.lp_api_token = jresult.get('token')
 
 
 	def update(self, parameters):
@@ -62,24 +87,25 @@ class Connect:
 		postdata = json.dumps(data)
 
 		api_path = self.config.init_path + self.config.pool + '/' + self.lpid + '/' + parameters['option']
-		# Debug
-		# print ('Api path')
-		# print api_path
+
+		if self.debug:
+			print ('-- Api path --')
+			print (api_path)
 
 		url = self.config.host + api_path
 
-		headers = {'content-type': 'application/json', 'Authorization':'Bearer %s' %self.config.auth_token}
+		headers = {'content-type': 'application/json', 'Authorization':'Bearer %s' %self.lp_api_token}
+
+		if self.debug:
+			print ( '-- update data --')
+			print (postdata)
 
 		if parameters.get('task') == 'delete':
 			result = requests.delete(url, headers=headers, verify=False)
 		elif parameters.get('task') == 'edit':
 			result = requests.put(url, data=postdata, headers=headers, verify=False)
 		else:
-			# Debug
-			# print ('Post data:')
-			# print (postdata)
 			result = requests.post(url, data=postdata, headers=headers, verify=False)
-			# print ('Result order:')
 
 		result = self.errorCheck(result)
 
@@ -88,9 +114,13 @@ class Connect:
 
 	def getMonitor(self, apipath):
 
+		if self.debug:
+			print ('-- Get API path --')
+			print (apipath)
+
 		endpoint = self.config.host + '/' + apipath
 
-		headers = {"Authorization":"Bearer %s" %self.config.auth_token}
+		headers = {"Authorization":"Bearer %s" %self.lp_api_token}
 
 		result = requests.get(endpoint,headers=headers,verify=False)
 
@@ -104,7 +134,11 @@ class Connect:
 		api_path = self.config.init_path + self.config.pool + '/' + self.lpid + '/' + option
 		endpoint = self.config.host + api_path
 
-		headers = {"Authorization":"Bearer %s" %self.config.auth_token}
+		if self.debug:
+			print ('-- Get option API path --')
+			print (api_path)
+
+		headers = {"Authorization":"Bearer %s" %self.lp_api_token}
 
 		result = requests.get(endpoint,headers=headers,verify=False)
 

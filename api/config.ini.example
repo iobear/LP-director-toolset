@@ -24,6 +24,11 @@ parser = LineParser
 proxy_condition = None
 
 [API]
+debug = 0
 host = https://lpapi.logpoint.com
 init_path = /configapi/v1/
-auth_token = 
+#Either:
+username =
+password =
+#Or
+auth_token =
