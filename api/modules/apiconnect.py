@@ -14,6 +14,7 @@ class Connect:
 		self.config = ApiConfig()
 		self.debug = self.config.debug
 		self.get_token()
+		self.headers = {'content-type': 'application/json', 'Authorization':'Bearer %s' %self.lp_api_token}
 
 		if not lphost:
 			lphost = self.config.lpid_host.get('default')
@@ -40,12 +41,11 @@ class Connect:
 			print('-- No token defined  --')
 
 		url = self.config.host + '/login'
-		headers = {'content-type': 'application/json'}
 
 		postdata['username'] = self.config.username
 		postdata['password'] = self.config.password
 
-		result = requests.post(url, data=json.dumps(postdata), headers=headers, verify=False)
+		result = requests.post(url, data=json.dumps(postdata), headers=self.headers, verify=False)
 		jresult = result.json()
 		self.lp_api_token = jresult.get('token')
 
@@ -94,18 +94,16 @@ class Connect:
 
 		url = self.config.host + api_path
 
-		headers = {'content-type': 'application/json', 'Authorization':'Bearer %s' %self.lp_api_token}
-
 		if self.debug:
 			print ( '-- update data --')
 			print (postdata)
 
 		if parameters.get('task') == 'delete':
-			result = requests.delete(url, headers=headers, verify=False)
+			result = requests.delete(url, headers=self.headers, verify=False)
 		elif parameters.get('task') == 'edit':
-			result = requests.put(url, data=postdata, headers=headers, verify=False)
+			result = requests.put(url, data=postdata, headers=self.headers, verify=False)
 		else:
-			result = requests.post(url, data=postdata, headers=headers, verify=False)
+			result = requests.post(url, data=postdata, headers=self.headers, verify=False)
 
 		result = self.errorCheck(result)
 
@@ -120,9 +118,7 @@ class Connect:
 
 		endpoint = self.config.host + '/' + apipath
 
-		headers = {"Authorization":"Bearer %s" %self.lp_api_token}
-
-		result = requests.get(endpoint,headers=headers,verify=False)
+		result = requests.get(endpoint,headers=self.headers,verify=False)
 
 		result = self.errorCheck(result)
 
@@ -138,9 +134,7 @@ class Connect:
 			print ('-- Get option API path --')
 			print (api_path)
 
-		headers = {"Authorization":"Bearer %s" %self.lp_api_token}
-
-		result = requests.get(endpoint,headers=headers,verify=False)
+		result = requests.get(endpoint,headers=self.headers,verify=False)
 
 		result = self.errorCheck(result)
 
