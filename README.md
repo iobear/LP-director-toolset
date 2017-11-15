@@ -1,5 +1,5 @@
 # LP-director-toolset
----
+
 ## Pre-requisites
 
 ### Python 2.7
@@ -63,7 +63,8 @@ Create repository:
 ./lpapi.py create repo --parameter name=Windows
 ./lpapi.py create repo --parameter name=Windows retention=36
 ./lpapi.py create repo --parameter name=Windows retention=36 path=/opt/immune/storage2/
-keep the path/retention in pairs:
+
+# keep the path/retention in pairs:
 ./lpapi.py create repo --parameter name=Windows retention=30 path=/opt/immune/storage/ path=/opt/immune/morestorage/ retention=120
 ```
 
@@ -151,6 +152,7 @@ Create distributed logpoint:
 
 ```
 ./lpapi.py create dlp -p ip_dns=10.199.199.116 private_ip=10.172.100.1 password=oJO0X2IbFeWfk
+
 # or:
 ./lpapi.py create distributedlogpoint -lph lpcol1 -p ip_dns=10.199.199.116 private_ip=10.172.100.1 password=oJO0X2IbFeWfk
 ```
@@ -175,9 +177,9 @@ Create NTP server(s):
 
 ```
 ./lpapi.py create ntp --parameter ntp_enabled=on ntp_server=10.199.199.2
-
 ./lpapi.py create ntp --parameter ntp_server=10.199.199.2 ntp_server=10.199.199.3
 
+# restart NTP service:
 ./lpapi.py restart ntp
 ```
 
