@@ -30,10 +30,9 @@ class Format:
 			orders = Orders()
 
 			if self.debug == '1':
-				print ('RESULT:')
+				print ('-- RESULT --')
 				print (result)
-				print ('ORDERS:')
-				print ('----')
+				print ('-- Getting ORDER --')
 
 			response = 0
 			while response == 0:
@@ -41,7 +40,7 @@ class Format:
 				orderresult = progress.get('message')
 
 				if self.debug == '1':
-					print ('DEBUG:')
+					print ('-- Raw result --')
 					print (orderresult)
 
 				response = len(orderresult.get('response'))

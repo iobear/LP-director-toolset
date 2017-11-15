@@ -34,7 +34,7 @@ class API:
 
 	def __init__(self, args):
 		self.connect = Connect(args.lphost)
-		self.show = Format(args.output, args.debug)
+		self.show = Format(args.output, self.config.debug)
 		self.task = args.task
 		self.data['task'] = args.task
 		self.data['userinput'] = args.parameter
@@ -288,3 +288,4 @@ class API:
 	def readJsonFile(self):
 		with open(self.file) as json_data:
 			return json.load(json_data)
+

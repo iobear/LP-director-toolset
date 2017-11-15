@@ -2,12 +2,8 @@
 #
 
 from modules.main import API
-from modules.config import ApiConfig
 
 import argparse
-import json
-
-#config = ApiConfig()
 
 parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 parser.add_argument('--lphost', '-lph', help='logpoint server name from config.ini')
