@@ -133,19 +133,19 @@ class API:
 
 
 	def distributedCollectors(self):
+		option = 'DistributedCollectors'
+
 		if self.task == 'get':
-			self.data['dcol'] = self.connect.getOption('DistributedCollectors')
+			self.data['dcol'] = self.connect.getOption(option)
 			self.show.printformat(self.data['dcol'])
 
 		if self.task == 'create' or self.task == 'activate':
-			self.data['option'] = 'DistributedCollectors'
+			self.data['option'] = option
 			result = self.connect.update(self.data)
 			self.show.printOrders(result)
 
 		if self.task == 'refresh':
-			self.data['option'] = 'DistributedCollectors/refreshlist'
-			result = self.connect.update(self.data)
-			self.show.printOrders(result)
+			self.refresh(option)
 
 
 	def openDoor(self):
@@ -216,7 +216,6 @@ class API:
 
 
 	def normalizationPolicy(self):
-
 		if self.task == 'get':
 			self.data['normpackapi'] = self.connect.getOption('NormalizationPackage')
 			self.data['normalizationpackage'] = self.normalizationpackage.getNames(self.data['normpackapi'])
@@ -231,15 +230,18 @@ class API:
 
 
 	def normalizationPackage(self):
+		option = 'NormalizationPackage'
 
 		if self.task == 'get':
-			self.data['normpackapi'] = self.connect.getOption('NormalizationPackage')
+			self.data['normpackapi'] = self.connect.getOption(option)
 
 			self.show.printformat(self.data['normpackapi'])
 
+		if self.task == 'refresh':
+			self.refresh(option)
+
 
 	def routingPolicy(self):
-
 		if self.task == 'get':
 			self.data['rpapi'] = self.connect.getOption('RoutingPolicies')
 
@@ -247,25 +249,22 @@ class API:
 
 
 	def supportConnection(self):
+		option = 'SystemSettingsSupportConnection'
 
 		if self.task == 'get':
-			self.data['supcon'] = self.connect.getOption('SystemSettingsSupportConnection')
+			self.data['supcon'] = self.connect.getOption(option)
 			self.show.printformat(self.data['supcon'])
 
 		if self.task == 'refresh':
-			self.data['option'] = 'SystemSettingsSupportConnection/refreshlist'
-			self.data['userinput'] = ['data=true']
-			result = self.connect.update(self.data)
-			self.show.printOrders(result)
+			self.refresh(option)
 
 		if self.task == 'create' or self.task == 'save':
-			self.data['option'] = 'SystemSettingsSupportConnection'
+			self.data['option'] = option
 			result = self.connect.update(self.data)
 			self.show.printOrders(result)
 
 
 	def systemSettingsSSH(self):
-
 		if self.task == 'get':
 			self.data['SSSSH'] = self.connect.getOption('SystemSettingsSSH')
 			self.show.printformat(self.data['SSSSH'])
@@ -274,6 +273,13 @@ class API:
 			self.data['option'] = 'SystemSettingsSSH'
 			result = self.connect.update(self.data)
 			self.show.printOrders(result)
+
+
+	def refresh(self, item):
+		self.data['option'] = item + '/refreshlist'
+		self.data['userinput'] = ['data=true']
+		result = self.connect.update(self.data)
+		self.show.printOrders(result)
 
 
 	def namesOnly(self, data, item):
