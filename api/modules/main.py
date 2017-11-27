@@ -216,17 +216,20 @@ class API:
 
 
 	def normalizationPolicy(self):
+		self.data['option'] = 'NormalizationPolicy'
+		self.data['normpolapi'] = self.connect.getOption('NormalizationPolicy')
+
 		if self.task == 'get':
-			self.data['normpackapi'] = self.connect.getOption('NormalizationPackage')
+			self.data['normpackapi'] = self.connect.getOption('NormalizationPackage') #get packege names, for translation
 			self.data['normalizationpackage'] = self.normalizationpackage.getNames(self.data['normpackapi'])
-			self.data['normpolapi'] = self.connect.getOption('NormalizationPolicy')
 
 			self.data['normalizationpolicy'] = self.normalizationpolicy.getAll(self.data)
-
 			self.show.printformat(self.data['normalizationpolicy'])
 
-		if self.task == 'create':
-			pass
+		if self.task in ['edit', 'delete', 'create']:
+			self.data = self.normalizationpolicy.update(self.data)
+			result = self.connect.update(self.data)
+			self.show.printOrders(result)
 
 
 	def normalizationPackage(self):

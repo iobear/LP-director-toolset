@@ -64,12 +64,20 @@ Devicegroup:
 ./lpapi.py create devicegroup --parameter name=testgrp description=tester
 
 
-Normalization:
+Normalization packages:
+./lpapi.py refresh normpack
+
 ./lpapi.py get normpack
 
 
 Normalization policy:
 ./lpapi.py get normpol
+create:
+./lpapi.py create normpol -p name=testnorm norm_packages=59b0f376d8aaa4143539fa3c,59b0f350d8aaa40ae9e20a0c
+edit:
+./lpapi.py edit normpol -p name=testnorm norm_packages=59b0f350d8aaa40ae9e20a0c,59b0f376d8aaa4143539fa3c
+delete
+./lpapi.py delete normpol -p name=testnorm
 
 
 Process policy:
