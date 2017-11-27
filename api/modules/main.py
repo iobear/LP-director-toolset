@@ -16,6 +16,7 @@ from normalizationpackage import NormalizationPackage
 from opendoor import OpenDoor
 from systemsettingsntp import SystemSettingsNTP
 from syslogcollector import SyslogCollector
+from routingpolicy import RoutingPolicy
 
 class API:
 	data = {}
@@ -30,6 +31,7 @@ class API:
 	opendoor = OpenDoor()
 	systemsettingsntp = SystemSettingsNTP()
 	syslogcollector	= SyslogCollector()
+	routingpolicy = RoutingPolicy()
 
 
 	def __init__(self, args):
@@ -253,10 +255,16 @@ class API:
 
 
 	def routingPolicy(self):
-		if self.task == 'get':
-			self.data['rpapi'] = self.connect.getOption('RoutingPolicies')
+		self.data['option'] = 'RoutingPolicies'
+		self.data['rpapi'] = self.connect.getOption('RoutingPolicies')
 
+		if self.task == 'get':
 			self.show.printformat(self.data['rpapi'])
+
+		if self.task in ['edit', 'delete', 'create']:
+			self.data = self.routingpolicy.update(self.data)
+			result = self.connect.update(self.data)
+			self.show.printOrders(result)
 
 
 	def supportConnection(self):

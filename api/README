@@ -55,8 +55,10 @@ file import:
 ./lpapi.py edit device --file import.json
 ./lpapi.py delete device --file import.json
 
+
 Syslog collector:
 ./lpapi.py create syslogcollect -p processpolicy=default name=linuxserver03
+
 
 Devicegroup:
 ./lpapi.py get devicegroup
@@ -80,7 +82,7 @@ delete
 ./lpapi.py delete normpol -p name=testnorm
 
 
-Process policy:
+Process Policy:
 ./lpapi.py get processpol
 create:
 ./lpapi.py create processpol -p routing_policy=default policy_name=test enrich_policy=None norm_policy=officerouter
@@ -90,8 +92,20 @@ delete:
 ./lpapi.py delete processpol -p policy_name=test
 
 
+Routing Policy:
+./lpapi.py get routepol
+create:
+./lpapi.py create routepol -p policy_name=officerouter catch_all=officerouter routing_criteria=
+edit:
+./lpapi.py edit routepol -p policy_name=officerouter catch_all=default routing_criteria=
+detele:
+./lpapi.py delete rpo -p policy_name=officerouter
+#TODO - routing_criteria
+
+
 OpenDoor:
 ./lpapi.py get opendoor
+create:
 ./lpapi.py create opendoor -lph lp1 -p network=10.172.100.1 netmask=255.255.255.128 password=oJO0X2IbFeWfk opened=on
 
 
