@@ -44,8 +44,9 @@ class Connect:
 
 		postdata['username'] = self.config.username
 		postdata['password'] = self.config.password
+		headers = {'content-type': 'application/json'}
 
-		result = requests.post(url, data=json.dumps(postdata), headers=self.headers, verify=False)
+		result = requests.post(url, data=json.dumps(postdata), headers=headers, verify=False)
 		jresult = result.json()
 		self.lp_api_token = jresult.get('token')
 
