@@ -126,3 +126,6 @@ SSH key:
 ./lpapi.py get ssh
 
 ./lpapi.py create ssh -p pass_phrase=QoYjPhfhs8boQ
+
+Plugins:
+./lpapi.py get plugin -o json

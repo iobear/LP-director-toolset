@@ -278,6 +278,12 @@ class API:
 			self.show.printOrders(result)
 
 
+	def plugins(self):
+		if self.task == 'get':
+			self.data['plugins'] = self.connect.getOption('Plugins')
+			self.show.printformat(self.data['plugins'])
+
+
 	def refresh(self, item):
 		self.data['option'] = item + '/refreshlist'
 		self.data['userinput'] = ['data=true']
