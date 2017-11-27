@@ -206,13 +206,21 @@ class API:
 
 
 	def processingPolicy(self):
+		self.data['option'] = 'ProcessingPolicy'
 		apiresponse = self.connect.getOption('RoutingPolicies')
 		self.data['routing_policy'] = self.namesOnly(apiresponse, 'policy_name')
+		apiresponse = self.connect.getOption('EnrichmentPolicy')
+		self.data['enrich_policy'] = self.namesOnly(apiresponse, 'name')
+		self.data['ppapi'] = self.connect.getOption('ProcessingPolicy')
 
 		if self.task == 'get':
-			self.data['ppapi'] = self.connect.getOption('ProcessingPolicy')
 			self.data = self.processingpolicy.listAll(self.data)
 			self.show.printformat(self.data)
+
+		if self.task in ['edit', 'delete', 'create']:
+			self.data = self.processingpolicy.update(self.data)
+			result = self.connect.update(self.data)
+			self.show.printOrders(result)
 
 
 	def normalizationPolicy(self):

@@ -82,6 +82,12 @@ delete
 
 Process policy:
 ./lpapi.py get processpol
+create:
+./lpapi.py create processpol -p routing_policy=default policy_name=test enrich_policy=None norm_policy=officerouter
+edit:
+./lpapi.py edit processpol -p routing_policy=default policy_name=test enrich_policy=None norm_policy=_logpoint
+delete:
+./lpapi.py delete processpol -p policy_name=test
 
 
 OpenDoor:
