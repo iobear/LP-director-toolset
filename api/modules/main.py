@@ -300,6 +300,13 @@ class API:
 			self.show.printformat(self.data['plugins'])
 
 
+	def enrichmentPolicy(self):
+		if self.task == 'get':
+			self.data['enrichmentpolicy'] = self.connect.getOption('EnrichmentPolicy')
+
+			self.show.rotatePrint(self.data['enrichmentpolicy'])
+
+
 	def refresh(self, item):
 		self.data['option'] = item + '/refreshlist'
 		self.data['userinput'] = ['data=true']

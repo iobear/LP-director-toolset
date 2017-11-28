@@ -10,7 +10,7 @@ parser.add_argument('--lphost', '-lph', help='logpoint server name from config.i
 parser.add_argument('--pool', help='pool name from config.ini')
 parser.add_argument('task', default='', choices=['get', 'create', 'edit', 'delete', 'restart', 'refresh', 'activate','save','update'], help='update or get information')
 parser.add_argument('--parameter', '-p', default='', nargs='*', help='parameters for create, edit, update')
-parser.add_argument('option', choices=['system', 'device', 'devicegroup', 'repo', 'syslogcollect', 'opendoor', 'processpol', 'plugin', 'normpol', 'routepol', 'normpack', 'ntp', 'syscol', 'od', 'ppo', 'npo', 'npa', 'dev', 'dg', 'rpo','dlp', 'distributedlogpoint','distributedcollectors','dcol','supportconnection','support','sshkey','ssh'], help='what part do you what work with?')
+parser.add_argument('option', choices=['system', 'device', 'devicegroup', 'repo', 'syslogcollect', 'opendoor', 'processpol', 'plugin', 'normpol', 'routepol', 'normpack', 'ntp', 'syscol', 'od', 'ppo', 'npo', 'npa', 'dev', 'dg', 'rpo','dlp', 'distributedlogpoint','distributedcollectors','dcol','supportconnection','support','sshkey','ssh', 'enrichpol', 'epo'], help='what part do you what work with?')
 parser.add_argument('--output', '-o', default='txt', choices=['json', 'txt'], help='output format')
 parser.add_argument('--file', '-f', default='', help='file for batch import')
 parser.add_argument('--debug', default=0, choices=['0', '1'], help='enable API debug')
@@ -57,6 +57,9 @@ if args.option == 'distributedlogpoint' or args.option == 'dlp':
 
 if args.option == 'distributedcollectors' or args.option == 'dcol':
 	api.distributedCollectors()
+
+if args.option == 'enrichpol' or args.option == 'epo':
+	api.enrichmentPolicy()
 
 if args.option == 'supportconnection' or args.option == 'support':
 	api.supportConnection()

@@ -56,6 +56,10 @@ file import:
 ./lpapi.py delete device --file import.json
 
 
+Enrichment policy:
+./lpapi.py get enrichpol
+
+
 Syslog collector:
 ./lpapi.py create syslogcollect -p processpolicy=default name=linuxserver03
 
