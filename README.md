@@ -1,4 +1,4 @@
-# LP-director-toolset
+# LogPoint-director-toolset
 
 ## Pre-requisites
 
